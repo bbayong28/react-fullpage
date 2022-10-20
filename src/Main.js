@@ -1,7 +1,10 @@
+
+
 import React, { useEffect, useRef, useState } from 'react'
 import ReactFullpage from '@fullpage/react-fullpage';
 import './css/Main.scss';
-import { profile, portfolio } from './Data';
+import { profile, portfolio, r_portfolio, cMenu } from './Data';
+import Contact from './Contact';
 
 //portfolio배열에서 title을 빼서 배열을 만들어 쓰겠다.
 const AC = portfolio.map(it => it = it.title);
@@ -12,6 +15,7 @@ const Cover = ({ on, setOn }) => {
     const wheelStop = e => {
         e.stopPropagation();
     }
+    //cover메뉴 열었을 때 wheel 막기
     useEffect(() => {
         cover.current.addEventListener('wheel', wheelStop);
         return () => {
@@ -43,7 +47,8 @@ const Cover = ({ on, setOn }) => {
     )
 }
 
-const Main = () => {
+const Main_copy = () => {
+    const [con, setCon] = useState("cover");
     const [num, setNum] = useState(1);
     const [on, setOn] = useState(false)
     return (
@@ -55,22 +60,13 @@ const Main = () => {
             {/* <div className='num'>{portfolio[num - 1]?.title}</div> */}
             <nav className='gnb'>
                 <ul>
-                    <li>
-                        <a href='#cover'>Main</a>
-                    </li>
-                    {
-                        portfolio.map((it, idx) => {
-                            return (
-                                <li key={idx} className={it.id === num ? "on" : ""}>
-                                    <a href={`#${it.title}`}>{it.name}</a>
-                                </li>
-                            )
-                        })
-                    }
-                    
-                    <li>
-                        <a href='#footer'>Profile</a>
-                    </li>
+                    {["cover", ...AC, "footer"].map((it, idx) => {
+                        return (
+                            <li key={idx} className={it.id === num ? "on" : ""}>
+                                <a href={`#${it.title}`}>{it.name}</a>
+                            </li>
+                        )}
+                    )}
                 </ul>
             </nav>
             <ReactFullpage
@@ -78,27 +74,56 @@ const Main = () => {
                 licenseKey={'YOUR_KEY_HERE'}
                 scrollingSpeed={1000} /* Options here */
                 anchors={['cover', ...AC, 'footer']}
-                afterLoad={(o, d) => setNum(d.index)}
+                afterLoad={(o, d) => {
+                    setNum(d.index);
+                    setCon(d.anchor);
+                }}
+
 
                 render={({ state, fullpageApi }) => {
                     return (
                         <ReactFullpage.Wrapper>
                             <div className="section main">
                                 <div className='case'>
-                                    <div className='circle'></div>
-                                    <h2>WELCOME TO MY<br/>PORTFOLIO</h2>
-                                    <p>{profile.title}</p>
+                                    <div className="inner">
+                                        <p className='tMenu'>HOME</p>
+                                        {/* <p>{cMenu.title}</p> */}
+                                        <h1>Hello, I'm<br/>Hwayeong Shin.</h1>
+                                        <p>{profile.title}</p>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                            <div className="section introduce">
+                                <div className='case'>
+                                    <div className="inner">
+                                        <div className='back'>
+                                            <p>소개페이지</p>
+                                        </div>
+                                    </div>                                    
                                 </div>
                             </div>
                             {
                                 portfolio.map((it, idx) => {
                                     return (
                                         <div className="section pf_main" >
-                                        <div className='case'>
+                                            <div className="Wrapper bgAnimation">
+                                                <div className="innerWrapper bgTop">
+                                                    <div className='wave top'></div>
+                                                </div>
+                                                <div className="innerWrapper bgMiddle">
+                                                    <div className='wave middle'></div>
+                                                </div>
+                                                <div className="innerWrapper bgBottom">
+                                                    <div className='wave bottom'></div>
+                                                </div>
+                                            </div>
+                                            <div className='case'>
                                                 <div className="left">
                                                     <div className="top">
-                                                        <h3>PUBLISHING<br />PROJECT</h3>
-                                                        <p>{`0${it.id}`}</p>
+                                                        <h3>PUBLISHING<br/>PROJECT</h3>
+                                                        {/* <h3>PUBLISHING<br />PROJECT</h3> */}
+                                                        <p>{`0${it.id}`}<span>{`/0${portfolio.length}`}</span></p>
                                                     </div>
                                                     <div className="bottom">
                                                         <ul className="about">
@@ -133,28 +158,92 @@ const Main = () => {
                                                     </div>
                                                 </div>  
                                                 <div className="right">
-                                                    <div className="photo">
-                                                        <div className='pc'>
-                                                            <img src={process.env.PUBLIC_URL + "/img/pc.png"} alt={it.title} />
-                                                            {/* {
-                                                                it.map((it, idx) => {
-                                                                    return (
-                                                                        <img src={process.env.PUBLIC_URL + "/img/fullpage0" + it.id + ".jpg"} alt={it.title} />
-                                                                    )
-                                                                })                                                            
-                                                            }
-                                                             */}
+                                                    <div className='mockup'>
+                                                        <div className="pc">
+                                                            <div className='pc_cover'>
+                                                                <img src={`${process.env.PUBLIC_URL}/img/fullpage0${it.id}.png`} alt={it.title} />
+                                                            </div>
                                                         </div>
-                                                        <div className='mobile'>
-                                                            <img src={process.env.PUBLIC_URL + "/img/mobile.png"} alt={it.title} />
-                                                            {/* {
-                                                                it.map((it, idx) => {
-                                                                    return (
-                                                                        <img src={process.env.PUBLIC_URL + "/img/m_fullpage0" + it.id + ".jpg"} alt={it.title} />
-                                                                    )
-                                                                })                                                            
-                                                            } */}
+                                                        <div className="mobile">
+                                                            <div className='mobile_cover'>
+                                                                <img className='mo_top' src={process.env.PUBLIC_URL + "/img/mobile_top.png"} alt={it.title} />
+                                                                <img className='mo_web' src={`${process.env.PUBLIC_URL}/img/m_fullpage0${it.id}.png`} alt={it.title} />
+                                                            </div>
                                                         </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    )
+                                })
+                            }
+                            {
+                                r_portfolio.map((it, idx) => {
+                                    return (
+                                        <div className="section pf_main" >
+                                            <div className="Wrapper bgAnimation">
+                                                <div className="innerWrapper bgTop">
+                                                    <div className='wave rTop'></div>
+                                                </div>
+                                                <div className="innerWrapper bgMiddle">
+                                                    <div className='wave rMiddle'></div>
+                                                </div>
+                                                <div className="innerWrapper bgBottom">
+                                                    <div className='wave rBottom'></div>
+                                                </div>
+                                            </div>
+                                            <div className='case'>
+                                                <div className="left">
+                                                    <div className="top">
+                                                        <h3>PUBLISHING<br/>PROJECT</h3>
+                                                        {/* <h3>PUBLISHING<br />PROJECT</h3> */}
+                                                        <p>{`0${it.id}`}<span>{`/0${portfolio.length}`}</span></p>
+                                                    </div>
+                                                    <div className="bottom">
+                                                        <ul className="about">
+                                                            <li className='title'>{it.title}</li>
+                                                            <li>- Type : {it.type}</li>
+                                                            <li>- Tool : {it.tool}</li>
+                                                            <li>- Font : {it.font}</li>
+                                                            <li className='color'>
+                                                                {
+                                                                    it.color && <strong>- Color : </strong>
+                                                                }
+                                                                <ol>
+                                                                    {
+                                                                        it.color?.map((color, idx) => {
+                                                                            return (
+                                                                                <li key={idx} style={{ background: color }}>{color}</li>
+                                                                            )
+                                                                        })
+                                                                    }
+                                                                </ol>
+                                                            </li>
+                                                            <li>
+                                                                <p>- 참여도 : 100%</p>
+                                                            </li>
+                                                            <li>
+                                                                <a href={it.link} target='_blank' className='link'>
+                                                                    <button>Web Page</button>
+                                                                </a>
+                                                            </li>
+                                                            
+                                                        </ul>
+                                                    </div>
+                                                </div>  
+                                                <div className="right">
+                                                    <div className='mockup'>
+                                                        <div className="pc">
+                                                            <div className='pc_cover'>
+                                                                <img src={`${process.env.PUBLIC_URL}/img/Rfullpage0${it.id}.png`} alt={it.title} />
+                                                            </div>
+                                                        </div>
+                                                        {/* <div className="mobile">
+                                                            <div className='mobile_cover'>
+                                                                <img className='mo_top' src={process.env.PUBLIC_URL + "/img/mobile_top.png"} alt={it.title} />
+                                                                <img className='mo_web' src={`${process.env.PUBLIC_URL}/img/m_Rfullpage0${it.id}.png`} alt={it.title} />
+                                                            </div>
+                                                        </div> */}
                                                     </div>
                                                 </div>
                                             </div>
@@ -174,6 +263,7 @@ const Main = () => {
                                     </div>
                                 </div>
                             </div>
+                            <Contact />
                         </ReactFullpage.Wrapper>
                     );
                 }}
@@ -182,4 +272,4 @@ const Main = () => {
     )
 }
 
-export default Main
+export default Main_copy

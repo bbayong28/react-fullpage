@@ -36,7 +36,7 @@ const Cover = ({ on, setOn }) => {
     )
 }
 
-const Main = () => {
+const Main_copy = () => {
     const [num, setNum] = useState(1);
     const [on, setOn] = useState(false)
     return (
@@ -125,4 +125,4 @@ const Main = () => {
     )
 }
 
-export default Main
+export default Main_copy

@@ -161,9 +161,10 @@ body {
         position: absolute;
         top: 50%;
         left:50%;
+        max-width: 1250px;
+        width: 100%;
         transform: translate(-50%,-50%);
         border-radius: 35px;
-        width: 1250px;
         height: 750px;
         background: #ececec;
         .left{
@@ -236,9 +237,10 @@ body {
         position: absolute;
         top: 50%;
         left:50%;
+        max-width: 1250px;
+        width: 100%;
         transform: translate(-50%,-50%);
         border-radius: 35px;
-        width: 1250px;
         height: 750px;
         background: url(../../public/img/inner_background.png) no-repeat center center / cover;
         .slide{
@@ -405,7 +407,7 @@ body {
     background: #151515;
     .oon{        
         padding: 30px;
-        display: flex;
+        display: flex;   
             
         .up{            
             .left{
@@ -510,7 +512,7 @@ body {
         }
     }
 }
- .fp-watermark{
+.fp-watermark{
     display: none;
 }
 

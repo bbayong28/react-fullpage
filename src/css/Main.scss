@@ -40,6 +40,10 @@ body {
         
 
 }
+.section{
+    height: 100vh;
+    overflow: hidden;
+}
 .btn {
     position: fixed;
     top: 5rem;
@@ -113,8 +117,8 @@ body {
     position: relative;
     .tMenu{
         position: absolute;
-        top: 30px;
-        left: 40px;
+        top: 50px;
+        left: 50px;
         font-size:45px;
         color: #FD3B10;
         font-weight: 600;
@@ -150,8 +154,8 @@ body {
     }   
     .tMenu{
         position: absolute;
-        top: 30px;
-        left: 40px;
+        top: 50px;
+        left: 50px;
         font-size:45px;
         color: #FD3B10;
         font-weight: 600;
@@ -218,8 +222,8 @@ body {
     }   
     .tMenu{
         position: absolute;
-        top: 30px;
-        left: 40px;
+        top: 50px;
+        left: 50px;
         font-size:45px;
         color: #FD3B10;
         font-weight: 600;

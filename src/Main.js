@@ -46,7 +46,7 @@ const Cover = ({ on, setOn }) => {
                 </div>
                 
               {/*  <div className='left'>
-                    <a href='#home'>HO</a>
+                    <a href='#home'>HOME</a>
                 </div>
                 <ul className='middle'>
                     {
